@@ -1,0 +1,57 @@
+<launch>
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="extra_gazebo_args" default=""/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  <arg name="physics" default="ode"/>
+  <arg name="verbose" default="false"/>
+  <arg name="world_name" default="worlds/empty.world"/>
+  <!-- set command arguments -->
+  <arg unless="$(arg paused)" name="command_arg1" value=""/>
+  <arg     if="$(arg paused)" name="command_arg1" value="-u"/>
+  <arg unless="$(arg headless)" name="command_arg2" value=""/>
+  <arg     if="$(arg headless)" name="command_arg2" value="-r"/>
+  <arg unless="$(arg verbose)" name="command_arg3" value=""/>
+  <arg     if="$(arg verbose)" name="command_arg3" value="--verbose"/>
+  <arg unless="$(arg debug)" name="script_type" value="gzserver"/>
+  <arg     if="$(arg debug)" name="script_type" value="debug"/>
+  <!-- set use_sim_time flag -->
+  <group if="$(arg use_sim_time)">
+    <param name="/use_sim_time" value="true" />
+  </group>
+
+  <!-- start rviz-->
+  <arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz" />
+
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+  <!-- start gazebo server-->
+  <node name="gazebo" pkg="gazebo_ros" type="$(arg script_type)" respawn="false" output="screen"
+  args="$(arg command_arg1) $(arg command_arg2) $(arg command_arg3) -e $(arg physics) $(arg extra_gazebo_args) $(arg world_name)" />
+  <!-- start gazebo client -->
+  <group if="$(arg gui)">
+    <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen"/>
+  </group>
+
+  <param name="field_description" command="$(find xacro)/xacro $(find my_lib)/src/urdf/field_urdf.urdf" />
+  <!-- <node name="spawn_field" pkg="gazebo_ros" type="spawn_model" args="-urdf -param field_description -z 0.1 -model field" respawn="false" output="screen" /> -->
+  <param name="robot_description" command="$(find xacro)/xacro $(find my_lib)/src/urdf/main_urdf.urdf" />
+  <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -z 1 -x -3 -y -1 -model fuck" respawn="false" output="screen" />
+  <!-- <param name="XL_description" command="$(find xacro)/xacro.py $(find swammers_description)/urdf/XL.urdf" />
+  <node name="spawn_XL" pkg="gazebo_ros" type="spawn_model" args="-urdf -param XL_description -z 1 -x -10 -y -10 -model XL" respawn="false" output="screen" /> -->
+
+  <!-- <node name='path' pkg="frc_utils" type="display_path.py"  output="screen"/> -->
+  <node pkg="tf" type="static_transform_publisher" name="map2odom" args="0 0 0 0 0 0 /map odom 50" />
+  <!-- <node pkg="tf" type="static_transform_publisher" name="odom2field" args="0 0 0 0 0 0 odom /field_link 1" /> -->
+  <node pkg="tf" type="static_transform_publisher" name="link2link" args="0 0 0 0 0 0 true/base_link /base_link 50" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+    <remap from="base_link" to="robot/base_link"/>
+  </node>
+  <node name="field_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+    <remap from="robot_description" to="field_description"/>
+  </node>
+  <include file="$(find my_lib)/src/launch/gazebo.launch"/>
+  <!-- <node name="joystick" pkg="my_lib" type="JoyStick.py" output="screen"/> -->
+
+</launch>

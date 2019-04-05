@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<robot name="Rench">
+
+<link name="base_link">
+  <visual>
+    <geometry>
+      <box size="1 1 1"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </visual>
+</link>
+
+
+  <link name="connector"/>
+
+  <joint name="radius" type="continuous">
+    <parent link="base_link"/>
+    <child link="connector"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <joint name="Height" type="fixed">
+    <parent link="connector"/>
+    <child link="wrench"/>
+    <axis xyz="0 0 0"/>
+    <origin rpy="0 0 1.57" xyz="0 1 2"/>
+  </joint>
+
+
+  <link name="wrench">
+    <visual>
+      <geometry>
+        <cylinder length="0.9" radius="0.15"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
+
+  <joint name="RtoL" type="continuous">
+    <parent link="wrench"/>
+    <child link="WR"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+
+  <link name="WR">
+    <visual>
+      <geometry>
+        <box size="0.6 0.1 0.2"/>
+      </geometry>
+      <origin rpy="1.57 1.57 0" xyz="0 -0.15 0"/>
+    </visual>
+  </link>
+
+
+  <joint name="RtoR" type="continuous">
+    <parent link="wrench"/>
+    <child link="WL"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+
+  <link name="WL">
+    <visual>
+      <geometry>
+        <box size="0.6 0.1 0.2"/>
+      </geometry>
+      <origin rpy="1.57 1.57 0" xyz="0 0.15 0"/>
+    </visual>
+  </link>
+
+
+
+</robot>

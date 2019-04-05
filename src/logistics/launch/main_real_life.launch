@@ -1,0 +1,25 @@
+<launch>
+  <arg name="use_rviz" default="false" />
+  <!-- casts topics to local host -->
+  <node name="web_video_server" pkg="web_video_server" type="web_video_server">
+		<param name="port" value="5800"/>
+	</node>
+  <!-- <node name="image" pkg="autonomous_frc" type="image_publisher.py" output="screen"/> -->
+  <!-- reflective tape detection using astra pro camera -->
+  <node name="reflective_tape_detector" pkg="autonomous_frc" type="ref_tape_detector.py" output="screen"/>
+  <include file="$(find astra_launch)/launch/astrapro.launch"/>
+  <include file="$(find autonomous_frc)/launch/usb_cam-test.launch"/>
+
+  <!-- communication to the RIO and DS -->
+  <node name="communication" pkg="robot_communication" type="communication.py"/>
+
+
+  <!-- Robot controll -->
+  <node name="logistics" pkg="logistics" type="state_machine.py" output="screen" />
+  <node name="path_follower" pkg="autonomous_frc" type="path_following.py" output="screen" />
+
+
+  <!-- RVIZ -->
+  <include file="$(find bosmat_simulation)/launch/rviz_launch.launch" if="$(arg use_rviz)"/>
+
+</launch>

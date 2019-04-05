@@ -1,0 +1,43 @@
+<!-- This file is made in order to load Rviz for the neato along with state publisher -->
+
+<launch>	
+	<arg name="with_rviz" default="true" />
+	<arg name="with_field" default="true" />
+	<arg name="static_map" default="true" />
+	<arg name="gui" default="false" />
+	<arg name="with_gazebo" default="false" />
+	<arg name="simulation" default="true" />
+	<arg name="with_camera" default="true" />
+
+	<node pkg="tf" type="static_transform_publisher" name="map2base" args="0 0 0.1 0 0 0 map odom 100" if="$(arg static_map)"/>
+	<node pkg="tf" type="static_transform_publisher" name="map2field" args="0 0 0.1 0 0 0 map field_link 1000" if="$(arg with_field)"/>
+	<param name="use_gui" value="$(arg gui)"/>
+	<param name="rate" value="30"/>
+	<param name="robot_description" textfile="$(find bosmat_description)/urdf/bosmat_low_detail.urdf" />
+	<param name="field_description" textfile="$(find bosmat_description)/urdf/field2018.urdf" />
+	
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find bosmat_description)/rviz/rviz_only.rviz" if="$(arg with_rviz)" />
+	<node name="robot_simulator" pkg="bosmat_description" type="simulator.py" output="screen" if="$(arg simulation)" />
+	<node name="path_generator" pkg="bosmat_description" type="generate_path.py" output="screen" if="$(arg simulation)" />
+	<node name="path_follower" pkg="bosmat_description" type="path_following.py" output="screen" if="$(arg simulation)" />
+	<group ns="camera1" if="$(arg with_camera)">
+	  <node name="camera_info" pkg="rostopic" type="rostopic"
+	      args="pub camera_info sensor_msgs/CameraInfo
+	     '{header: {seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: 'astra_camera'},
+	      height: 720, width: 1280, distortion_model: 'plumb_bob',
+	      D: [0],
+	      K: [500.0, 0.0, 320, 0.0, 500.0, 240.0, 0.0, 0.0, 1.0],
+	      R: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+	      P: [500.0, 0.0, 320, 0.0, 0.0, 500, 240, 0.0, 0.0, 0.0, 1.0, 0.0],
+	      binning_x: 0, binning_y: 0,
+	      roi: {x_offset: 0, y_offset: 0, height: 720, width: 1280, do_rectify: false}}' -r 10"
+	      output="screen"/>
+	  </group>
+
+
+	<include file="$(find bosmat_description)/launch/gazebo_bosmat.launch" if="$(arg with_gazebo)"/>
+</launch>
+

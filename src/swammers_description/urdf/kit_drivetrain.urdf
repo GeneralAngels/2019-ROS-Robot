@@ -1,0 +1,605 @@
+<?xml version="1.0"?>
+  <robot name="myfirst" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <material name="gray">
+      <color rgba="0.35 0.35 0.35 0.5"/>
+    </material>
+
+
+    <!-- ROBOT SIZE (allowed):
+    28 inch * 33 inch
+    71.12 cm * 83 cm
+
+    HIGHET:
+    139 cm.05" ixy="0.000" ixz="0.000" iyy="0.01" iyz="0.00" izz="0.01" />
+      </inertial>
+
+
+    WHEELS:
+    diameter:
+    4 inch = 10 cm
+
+
+   -->
+
+    <link name="base_link">
+      <visual>
+        <geometry>
+          <box size="0.83 0.71 0.14"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0.07"/>
+        <material name="gray"/>
+      </visual>
+
+      <collision>
+        <geometry>
+          <box size="0.83 0.71 0.14"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0.07"/>
+      </collision>
+
+      <inertial>
+        <mass value='15.6'/>
+        <inertia ixx="0.04" ixy="0.000" ixz="0.000" iyy="0.001" iyz="0.00" izz="0.001" />
+      </inertial>
+    </link>
+
+
+    <link name="left_center_wheel">
+      <visual>
+        <geometry>
+          <cylinder length="0.03" radius="0.1"/>
+        </geometry>
+        <origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+      </visual>
+
+    <collision>
+      <geometry>
+        <cylinder length="0.024" radius="0.102"/>
+      </geometry>
+      <origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+    </collision>
+
+    <inertial>
+        <mass value="0.3"/>
+        <inertia ixx="0.05" ixy="0.000" ixz="0.000" iyy="0.01" iyz="0.00" izz="0.01" />
+      </inertial>
+    </link>
+
+
+    <joint name="left_center_wheel_to_base_link" type="continuous">
+      <parent link="base_link"/>
+      <child link="left_center_wheel"/>
+      <origin xyz="0 0.4 0.0" rpy="0 1 0"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+
+
+
+    <link name="left_back_wheel">
+      <visual>
+        <geometry>
+          <cylinder length="0.03" radius="0.1"/>
+        </geometry>
+        <origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+      </visual>
+
+    <collision>
+      <geometry>
+        <cylinder length="0.024" radius="0.1"/>
+      </geometry>
+      <origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+    </collision>
+
+    <inertial>
+      <mass value="0.3"/>
+      <inertia ixx="0.05" ixy="0.000" ixz="0.000" iyy="0.01" iyz="0.00" izz="0.01" />
+    </inertial>
+    </link>
+
+
+    <joint name="left_back_wheel_to_base_link" type="continuous">
+      <parent link="base_link"/>
+      <child link="left_back_wheel"/>
+      <origin xyz="-0.3 0.4 0.0" rpy="0 1 0"/>
+      <axis xyz="0 1 0"/>
+      <mimic joint="left_center_wheel_to_base_link" multiplier="1" offset="0"/>
+    </joint>
+
+
+
+    <link name="left_front_wheel">
+      <visual>
+        <geometry>
+          <cylinder length="0.03" radius="0.1"/>
+        </geometry>
+        <origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+      </visual>
+
+    <collision>
+      <geometry>
+        <cylinder length="0.024" radius="0.1"/>
+      </geometry>
+      <origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+    </collision>
+
+    <inertial>
+      <mass value="0.3"/>
+      <inertia ixx="0.05" ixy="0.000" ixz="0.000" iyy="0.01" iyz="0.00" izz="0.01" />
+    </inertial>
+    </link>
+
+
+    <joint name="left_front_wheel_to_base_link" type="continuous">
+      <parent link="base_link"/>
+      <child link="left_front_wheel"/>
+      <origin xyz="0.3 0.4 0.0" rpy="0 1 0"/>
+      <axis xyz="0 1 0"/>
+      <mimic joint="left_center_wheel_to_base_link" multiplier="1" offset="0"/>
+    </joint>
+
+    <link name="right_center_wheel">
+      <visual>
+        <geometry>
+          <cylinder length="0.03" radius="0.1"/>
+        </geometry>
+        <origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+      </visual>
+
+    <collision>
+      <geometry>
+        <cylinder length="0.024" radius="0.102"/>
+      </geometry>
+      <origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+    </collision>
+
+    <inertial>
+        <mass value="0.3"/>
+        <inertia ixx="0.05" ixy="0.000" ixz="0.000" iyy="0.01" iyz="0.00" izz="0.01" />
+      </inertial>
+    </link>
+
+
+    <joint name="right_center_wheel_to_base_link" type="continuous">
+      <parent link="base_link"/>
+      <child link="right_center_wheel"/>
+      <origin xyz="0 -0.4 0.0" rpy="0 1 0"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+
+
+
+    <link name="right_back_wheel">
+      <visual>
+        <geometry>
+          <cylinder length="0.03" radius="0.1"/>
+        </geometry>
+        <origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+      </visual>
+
+    <collision>
+      <geometry>
+        <cylinder length="0.024" radius="0.1"/>
+      </geometry>
+      <origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+    </collision>
+
+    <inertial>
+      <mass value="0.3"/>
+      <inertia ixx="0.05" ixy="0.000" ixz="0.000" iyy="0.01" iyz="0.00" izz="0.01" />
+    </inertial>
+    </link>
+
+
+    <joint name="right_back_wheel_to_base_link" type="continuous">
+      <parent link="base_link"/>
+      <child link="right_back_wheel"/>
+      <origin xyz="-0.3 -0.4 0.0" rpy="0 1 0"/>
+      <axis xyz="0 1 0"/>
+      <mimic joint="right_center_wheel_to_base_link" multiplier="1" offset="0"/>
+    </joint>
+
+
+
+    <link name="right_front_wheel">
+      <visual>
+        <geometry>
+          <cylinder length="0.03" radius="0.1"/>
+        </geometry>
+        <origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+      </visual>
+
+    <collision>
+      <geometry>
+        <cylinder length="0.024" radius="0.1"/>
+      </geometry>
+      <origin rpy="1.57 1.57 0" xyz="0 0 0"/>
+    </collision>
+
+    <inertial>
+      <mass value="0.3"/>
+      <inertia ixx="0.00001" ixy="0.000" ixz="0.000" iyy="0.001" iyz="0.00" izz="0.0001" />
+    </inertial>
+    </link>
+
+
+    <joint name="right_front_wheel_to_base_link" type="continuous">
+      <parent link="base_link"/>
+      <child link="right_front_wheel"/>
+      <origin xyz="0.3 -0.4 0.0" rpy="0 1 0"/>
+      <axis xyz="0 1 0"/>
+      <mimic joint="right_center_wheel_to_base_link" multiplier="1" offset="0"/>
+    </joint>
+
+
+<!-- makbilit shit -->
+    <link name='left_wall'>
+      <visual>
+        <geometry>
+          <box size="0.3 0.14 0.7"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+      </visual>
+
+      <collision>
+        <geometry>
+          <box size="0.3 0.14 0.7"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+      </collision>
+
+      <inertial>
+        <mass value="5"/>
+        <inertia ixx="0.00001" ixy="0.000" ixz="0.000" iyy="0.001" iyz="0.00" izz="0.0001" />
+      </inertial>
+    </link>
+
+
+
+    <joint name="left_wall_to_body" type="fixed">
+      <parent link="base_link"/>
+      <child link="left_wall"/>
+      <origin xyz="-0.2 -0.2 0.48" rpy="0 0 0"/>
+    </joint>
+
+    <link name='right_wall'>
+      <visual>
+        <geometry>
+          <box size="0.3 0.14 0.7"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+      </visual>
+
+      <collision>
+        <geometry>
+          <box size="0.3 0.14 0.7"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+      </collision>
+
+      <inertial>
+        <mass value="5"/>
+        <inertia ixx="0.00001" ixy="0.000" ixz="0.000" iyy="0.001" iyz="0.00" izz="0.0001" />
+      </inertial>
+    </link>
+
+
+
+    <joint name="right_wall_to_body" type="fixed">
+      <parent link="base_link"/>
+      <child link="right_wall"/>
+      <origin xyz="-0.2 0.2 0.48" rpy="0 0 0"/>
+    </joint>
+
+<!--
+    <link name='makbilit'>
+      <visual>
+        <geometry>
+          <box size="1.1 0.14 0.14"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0.5 0 0"/>
+      </visual>
+
+      <collision>
+        <geometry>
+            <box size="1.1 0.14 0.14"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+      </collision>
+
+      <inertial>
+        <mass value="20"/>
+        <inertia ixx="0.00001" ixy="0.000" ixz="0.000" iyy="0.001" iyz="0.00" izz="0.0001" />
+      </inertial>
+    </link>
+
+
+
+
+    <joint name="makbilit_to_body" type="revolute">
+      <limit effort="1000.0" lower="-0.71" upper="0.71" velocity="0.5"/>
+      <parent link="base_link"/>
+      <child link="makbilit"/>
+      <origin xyz="-0.2 0 0.8" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+
+
+    <link name='gripper'>
+      <visual>
+        <geometry>
+          <box size="0.4 0.4 0.14"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0.25 0 0"/>
+      </visual>
+
+      <collision>
+        <geometry>
+            <box size="0.5 0.5 0.14"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+      </collision>
+
+      <inertial>
+        <mass value="6"/>
+        <inertia ixx="0.00001" ixy="0.000" ixz="0.000" iyy="0.001" iyz="0.00" izz="0.0001" />
+      </inertial>
+    </link>
+
+
+
+
+    <joint name="makbilit_to_gripper" type="revolute">
+      <limit effort="1000.0" lower="-0.71" upper="0.71" velocity="0.5"/>
+      <parent link="makbilit"/>
+      <child link="gripper"/>
+      <origin xyz="1 0 0" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+
+
+ -->
+
+
+
+
+
+
+    <!-- camera position -->
+    <joint name="camera_rgb_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="-0.065 -0.0125 0.152"/>
+        <parent link="base_link"/>
+        <child link="camera_rgb_frame"/>
+    </joint>
+    <link name="camera_rgb_frame"/>
+
+    <joint name="camera_rgb_optical_joint" type="fixed">
+      <origin rpy="-1.570795 0 -1.570795" xyz="0 0 0"/>
+      <parent link="camera_rgb_frame"/>
+      <child link="camera_rgb_optical_frame"/>
+    </joint>
+    <link name="camera_rgb_optical_frame"/>
+
+    <joint name="camera_joint" type="fixed">
+      <origin rpy="0 0 0" xyz="-0.031 0.0125 -0.016"/>
+      <parent link="camera_rgb_frame"/>
+      <child link="camera_link"/>
+    </joint>
+    <link name="camera_link">
+      <visual>
+        <origin rpy="0 0 1.570795" xyz="0 0 0"/>
+        <geometry>
+          <box size="0.07271 0.27794 0.02"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.07271 0.27794 0.02"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.564" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="0.003881243" ixy="0.0" ixz="0.0"
+                 iyy="0.000498940" iyz="0.0"
+                 izz="0.003879257" />
+      </inertial>
+    </link>
+    <!-- The fixed joints & links below are usually published by static_transformers launched by the OpenNi launch
+           files. However, for Gazebo simulation we need them, so we add them here.
+           (Hence, don't publish them additionally!) -->
+    <joint name="camera_depth_joint" type="fixed">
+      <origin rpy="0 0 0" xyz="0 0.025 0"/>
+      <parent link="camera_rgb_frame"/>
+      <child link="camera_depth_frame"/>
+    </joint>
+    <link name="camera_depth_frame"/>
+
+    <joint name="camera_depth_optical_joint" type="fixed">
+      <origin rpy="-1.570795 0 -1.570795" xyz="0 0 0"/>
+      <parent link="camera_depth_frame"/>
+      <child link="camera_depth_optical_frame"/>
+    </joint>
+    <link name="camera_depth_optical_frame"/>
+
+
+
+
+
+
+
+
+    <!-- gazebo plugins -->
+
+
+
+
+    <gazebo reference="base_link">
+      <mu1>0.0</mu1>
+      <mu2>0.0</mu2>
+      <material>Gazebo/White</material>
+    </gazebo>
+
+    <gazebo reference="left_back_wheel_to_base_link">
+      <mu1>0.3</mu1>
+      <mu2>0.1</mu2>
+      <kp>10.0</kp>
+      <kd>10.0</kd>
+      <minDepth>0.01</minDepth>
+      <maxVel>10</maxVel>
+      <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="left_center_wheel_to_base_link">
+      <mu1>0.3</mu1>
+      <mu2>0.1</mu2>
+      <kp>10.0</kp>
+      <kd>10.0</kd>
+      <minDepth>0.01</minDepth>
+      <maxVel>10</maxVel>
+      <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="left_front_wheel_to_base_link">
+      <mu1>0.3</mu1>
+      <mu2>0.1</mu2>
+      <kp>10.0</kp>
+      <kd>10.0</kd>
+      <minDepth>0.01</minDepth>
+      <maxVel>10</maxVel>
+      <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="right_front_wheel_to_base_link">
+      <mu1>0.3</mu1>
+      <mu2>0.1</mu2>
+      <kp>10.0</kp>
+      <kd>10.0</kd>
+      <minDepth>0.01</minDepth>
+      <maxVel>10</maxVel>
+      <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="right_center_wheel_to_base_link">
+      <mu1>0.3</mu1>
+      <mu2>0.1</mu2>
+      <kp>10.0</kp>
+      <kd>10.0</kd>
+      <minDepth>0.01</minDepth>
+      <maxVel>10</maxVel>
+      <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="right_back_wheel_to_base_link">
+      <mu1>0.3</mu1>
+      <mu2>0.1</mu2>
+      <kp>10.0</kp>
+      <kd>10.0</kd>
+      <minDepth>0.01</minDepth>
+      <maxVel>10</maxVel>
+      <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo>
+      <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+        <legacyMode>false</legacyMode>
+        <publishTf>1</publishTf>
+        <publishWheelTF>true</publishWheelTF>
+        <publishWheelJointState>true</publishWheelJointState>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>50</updateRate>
+        <leftJoint>left_center_wheel_to_base_link </leftJoint>
+        <rightJoint>right_center_wheel_to_base_link</rightJoint>
+        <wheelSeparation>0.8</wheelSeparation>
+        <wheelDiameter>0.1</wheelDiameter>
+        <wheelTorque>7</wheelTorque>
+        <wheelAcceleration>3</wheelAcceleration>
+        <commandTopic>/cmd_vel</commandTopic>
+        <odometryTopic>/odom</odometryTopic>
+        <odometryFrame>/odom</odometryFrame>
+        <robotBaseFrame>base_link</robotBaseFrame>
+      </plugin>
+
+    </gazebo>
+    <gazebo>
+      <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+        <legacyMode>false</legacyMode>
+        <publishTf>1</publishTf>
+        <publishWheelTF>true</publishWheelTF>
+        <publishWheelJointState>true</publishWheelJointState>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>50</updateRate>
+        <leftJoint>left_front_wheel_to_base_link </leftJoint>
+        <rightJoint>right_front_wheel_to_base_link</rightJoint>
+        <wheelSeparation>0.8</wheelSeparation>
+        <wheelDiameter>0.1</wheelDiameter>
+        <wheelTorque>7</wheelTorque>
+        <wheelAcceleration>3</wheelAcceleration>
+        <commandTopic>/cmd_vel</commandTopic>
+        <odometryTopic>/odom</odometryTopic>
+        <odometryFrame>/odom</odometryFrame>
+        <robotBaseFrame>base_link</robotBaseFrame>
+      </plugin>
+
+    </gazebo>
+    <gazebo>
+      <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+        <legacyMode>false</legacyMode>
+        <publishTf>1</publishTf>
+        <publishWheelTF>true</publishWheelTF>
+        <publishWheelJointState>true</publishWheelJointState>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>50</updateRate>
+        <leftJoint>left_back_wheel_to_base_link </leftJoint>
+        <rightJoint>right_back_wheel_to_base_link</rightJoint>
+        <wheelSeparation>0.8</wheelSeparation>
+        <wheelDiameter>0.1</wheelDiameter>
+        <wheelTorque>7</wheelTorque>
+        <wheelAcceleration>3</wheelAcceleration>
+        <commandTopic>/cmd_vel</commandTopic>
+        <odometryTopic>/odom</odometryTopic>
+        <odometryFrame>/odom</odometryFrame>
+        <robotBaseFrame>base_link</robotBaseFrame>
+      </plugin>
+
+    </gazebo>
+
+
+
+    <gazebo reference="camera_link">
+    <sensor type="depth" name="camera">
+      <always_on>true</always_on>
+      <update_rate>20.0</update_rate>
+      <camera>
+        <horizontal_fov>1.04719</horizontal_fov>
+        <image>
+          <format>B8G8R8</format>
+          <width>640</width>
+          <height>480</height>
+        </image>
+        <clip>
+          <near>0.05</near>
+          <far>8.0</far>
+        </clip>
+      </camera>
+      <plugin name="kinect_camera_controller" filename="libgazebo_ros_openni_kinect.so">
+        <cameraName>camera</cameraName>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>10</updateRate>
+        <imageTopicName>rgb/image_raw</imageTopicName>
+        <depthImageTopicName>depth/image_raw</depthImageTopicName>
+        <pointCloudTopicName>depth/points</pointCloudTopicName>
+        <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+        <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+        <frameName>camera_depth_optical_frame</frameName>
+        <baseline>0.1</baseline>
+        <distortion_k1>0.0</distortion_k1>
+        <distortion_k2>0.0</distortion_k2>
+        <distortion_k3>0.0</distortion_k3>
+        <distortion_t1>0.0</distortion_t1>
+        <distortion_t2>0.0</distortion_t2>
+        <pointCloudCutoff>0.4</pointCloudCutoff>
+      </plugin>
+    </sensor>
+  </gazebo>
+  </robot>

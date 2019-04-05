@@ -1,0 +1,18 @@
+<!-- This file is made in order to load Rviz for the neato along with state publisher -->
+
+<launch>	
+	<arg name="with_rviz" default="true" />
+	<arg name="static_map" default="true" />
+	<arg name="gui" default="false" />
+
+	<node pkg="tf" type="static_transform_publisher" name="map2odom" args="0 0 0.1 0 0 0 map base_link 100" if="$(arg static_map)"/>
+	<param name="robot_description" textfile="$(find bosmat_description)/urdf/bosmat_low_detail.urdf" />
+	<param name="use_gui" value="$(arg gui)"/>
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find bosmat_description)/rviz/rviz_only.rviz" if="$(arg with_rviz)" />
+
+	<include file="$(find bosmat_description)/launch/gazebo_bosmat.launch"/>
+</launch>
+

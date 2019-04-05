@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<robot name="XL" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <link name="can_link">
+    <visual>
+        <origin xyz="-0.085 0.0 -0.22" rpy="1.57 0 0" />
+        <geometry>
+            <mesh filename="package://swammers_description/meshes/energy drink can.STL" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="LightGray">
+            <color rgba="0.7 0.7 0.7 1" />
+        </material>
+    </visual>
+
+    <collision>
+      <origin xyz="-0.00 0.0 -0.0" rpy="0 0 0" />
+      <geometry>
+          <mesh filename="package://swammers_description/meshes/energy drink can.STL" scale="0.001 0.001 0.001" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.0" ixy="0.0" ixz="0.0" izz="0.0" iyy="0.0" iyz="0.0" />
+    </inertial>
+  </link>
+
+</robot>
